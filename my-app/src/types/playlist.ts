@@ -12,3 +12,24 @@ export type Playlist = {
     description: string;
     songs: Song[];
 };
+
+export interface PlaylistContextType {
+    playlists: Playlist[];
+    addPlaylist: (title: string, description: string) => void;
+    deletePlaylist: (id: string) => void;
+    editPlaylist: (id: string, title: string, description: string) => void;
+    addSong: (playlistId: string, song: Song) => void;
+    deleteSong: (playlistId: string, songId: string) => void;
+}
+
+export interface PlaylistInfoProps {
+    playlist: { title: string; description: string };
+    isEditing: boolean;
+    setTitle: (title: string) => void;
+    setDescription: (desc: string) => void;
+}
+
+export interface SongListProps {
+    playlist: Playlist;
+    isEditing: boolean;
+}
