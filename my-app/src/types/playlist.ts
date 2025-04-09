@@ -4,7 +4,6 @@ export type Song = {
     artist: string;
     album: string;
     duration: string;
-    isEditing: boolean;
 };
 
 export type Playlist = {

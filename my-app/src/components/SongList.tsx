@@ -18,7 +18,6 @@ const SongList = ({ playlist, isEditing }: SongListProps) => {
             artist: "Unknown Artist",
             album: "Unknown Album",
             duration: "00:00",
-            isEditing: false
         };
         addSong(playlist.id, newSong);
     };
