@@ -1,6 +1,5 @@
 // Static 
 import Card from "@/components/Card"
-import { playlists } from "@/example_data"
 import Header from "@/components/Header"
 import Footer from "@/components/Footer"
 import { useState, useContext } from 'react'
@@ -9,6 +8,7 @@ import AddPlaylistForm from "@/components/AddPlaylistForm"
 
 export default function Playlists() {
     const [showAddForm, setShowAddForm] = useState(false);
+    const { playlists } = useContext(PlaylistContext)!;
 
     return (
         <div className="flex flex-col min-h-screen min-w-screen">
