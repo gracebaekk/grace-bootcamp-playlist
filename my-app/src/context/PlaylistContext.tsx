@@ -17,7 +17,6 @@ export function PlaylistProvider({ children }: { children: ReactNode }) {
         console.error('Error loading playlists:', error);
       }
     }
-
     fetchPlaylists();
   }, []);
   
