@@ -5,7 +5,7 @@ import { useContext } from "react";
 
 
 const SongList = ({ playlist, isEditing }: SongListProps) => {
-    const { deleteSong, addSong } = useContext(PlaylistContext)!;
+    const { deleteSong, addSong, deletePlaylist } = useContext(PlaylistContext)!;
     
     const handleDelete = (song: Song) => {
         deleteSong(playlist.id, song.id);
@@ -22,6 +22,10 @@ const SongList = ({ playlist, isEditing }: SongListProps) => {
         addSong(playlist.id, newSong);
     };
 
+    const handleDeletePlaylist = (id: string) => {
+        deletePlaylist(id);
+    };
+
     return (
         <div className="flex flex-col gap-5">
             <hr className="border-gray-600"></hr>
@@ -34,9 +38,9 @@ const SongList = ({ playlist, isEditing }: SongListProps) => {
             </div>
             <hr className="border-gray-600"></hr>
             <div className="flex flex-col gap-5">
-                {playlist.songs.map((song, index) => (
+                {playlist.songs?.map((song, index) => (
                     <Songs key={index} song={song} index={index + 1} isEditing={isEditing} onDelete={() => handleDelete(song)} />
-                ))}
+                )) || <p className="text-gray-400">No songs available</p>}
             </div>
             {isEditing && (
                 <div onClick={() => console.log("Add song clicked")} className="w-full border border-gray-600 rounded p-2 flex justify-center items-center cursor-pointer hover:border-green-400 transition">
@@ -44,7 +48,7 @@ const SongList = ({ playlist, isEditing }: SongListProps) => {
                 </div>
             )}
             {isEditing && (
-                <button onClick={() => console.log("Delete playlist clicked")} className="bg-red-500 hover:bg-red-600 text-white font-semibold py-3 px-4 mt-6 rounded w-full transition focus:outline-none focus:ring-0"> Delete Playlist </button>
+                <button onClick={() => handleDeletePlaylist(playlist.id)} className="bg-red-500 hover:bg-red-600 text-white font-semibold py-3 px-4 mt-6 rounded w-full transition focus:outline-none focus:ring-0"> Delete Playlist </button>
             )}
         </div>
     );

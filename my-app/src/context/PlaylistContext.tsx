@@ -1,11 +1,24 @@
-import { createContext, useState, ReactNode } from 'react'
+import { createContext, useState, useEffect, ReactNode } from 'react'
 import { Playlist, PlaylistContextType, Song } from '../types/playlist';
-import { playlists as examplePlaylists } from "@/example_data";
 
 const PlaylistContext = createContext<PlaylistContextType | null>(null);
 
 export function PlaylistProvider({ children }: { children: ReactNode }) {
-  const [playlists, setPlaylists] = useState<Playlist[]>(examplePlaylists);
+  const [playlists, setPlaylists] = useState<Playlist[]>([]);
+  
+  useEffect(() => {
+    async function fetchPlaylists() {
+      try {
+        const res = await fetch('/api/playlists');
+        if (!res.ok) throw new Error('Failed to fetch playlists');
+        const data = await res.json();
+        setPlaylists(data.playlists);
+      } catch (error) {
+        console.error('Error loading playlists:', error);
+      }
+    }
+    fetchPlaylists();
+  }, []);
   
   const addPlaylist = (title: string, description: string) => {
     setPlaylists([...playlists, { id: Date.now().toString(), title, description, songs: [] }]);
